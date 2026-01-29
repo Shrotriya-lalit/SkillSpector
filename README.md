@@ -306,7 +306,7 @@ Contributions are welcome! Please read our contributing guidelines and submit pu
 
 ## Support
 
-- **Issues**: [GitLab Issues](https://gitlab-master.nvidia.com/prototypes/skillspector/-/issues)
+- **Issues**: [GitLab Issues](https://gitlab-master.nvidia.com/demos/skillspector/-/issues)
 
 ---
 
