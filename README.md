@@ -338,6 +338,47 @@ Based on research from "Agent Skills in the Wild: An Empirical Study of Security
 - **High-severity**: 5.2% show likely malicious intent
 - **Key finding**: Skills with executable scripts are 2.12x more likely to be vulnerable
 
+## Integration with NV-BASE
+
+SkillSpector is integrated into [NV-BASE](https://gitlab-master.nvidia.com/ai_tools/nv-base) (NVIDIA Benchmark for Agent Skills Evaluation) as the primary security scanner for Tier 1 validation.
+
+### Using SkillSpector via NV-BASE
+
+```bash
+# Install NV-BASE (includes skillspector as dependency)
+pip install nv-base -i https://urm.nvidia.com/artifactory/api/pypi/nv-shared-pypi/simple
+
+# Run security scan on a skill
+nv-base security-scan /path/to/skill/
+
+# Run with LLM analysis
+nv-base security-scan /path/to/skill/ --llm
+
+# Run full validation (includes security scan)
+nv-base validate /path/to/skill/
+```
+
+### Python API Integration
+
+```python
+from skillspector.scanner import SkillScanner
+
+# Create scanner instance
+scanner = SkillScanner(use_llm=True, verbose=False)
+
+# Scan a skill directory
+result = scanner.scan("/path/to/skill")
+
+# Access results
+print(f"Risk Score: {result.risk_assessment.score}/100")
+print(f"Severity: {result.risk_assessment.severity}")
+
+for issue in result.issues:
+    print(f"[{issue.severity}] {issue.pattern_name}: {issue.finding}")
+```
+
+This is how NV-BASE uses SkillSpector for automated skill validation in the NVCARPS system.
+
 ## License
 
 MIT License - see [LICENSE](LICENSE) for details.
